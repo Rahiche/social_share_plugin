@@ -1,7 +1,7 @@
 import Flutter
 import UIKit
 
-public class SwiftSocialSharePlugin: NSObject, FlutterPlugin, SharingDelegate {
+public class SwiftSocialSharePlugin: NSObject, FlutterPlugin {
     public func sharer(_ sharer: Sharing, didCompleteWithResults results: [String: Any]) {
         _channel.invokeMethod("onSuccess", arguments: nil)
         guard let result = _result else {
