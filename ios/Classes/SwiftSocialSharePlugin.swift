@@ -15,25 +15,6 @@ public class SwiftSocialSharePlugin: NSObject, FlutterPlugin {
         let channel = FlutterMethodChannel(name: "social_share_plugin", binaryMessenger: registrar.messenger())
         let instance = SwiftSocialSharePlugin(fromChannel: channel)
         registrar.addMethodCallDelegate(instance, channel: channel)
-        registrar.addApplicationDelegate(instance)
-    }
-
-    public func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [AnyHashable: Any] = [:]) -> Bool {
-        let launchOptionsForFacebook = launchOptions as? [UIApplication.LaunchOptionsKey: Any]
-        ApplicationDelegate.shared.application(
-            application,
-            didFinishLaunchingWithOptions:
-            launchOptionsForFacebook
-        )
-        return true
-    }
-
-    public func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: options[UIApplication.OpenURLOptionsKey.sourceApplication] as? String, annotation: options[UIApplication.OpenURLOptionsKey.annotation])
-    }
-
-    public func application(_ application: UIApplication, open url: URL, sourceApplication: String, annotation: Any) -> Bool {
-        return ApplicationDelegate.shared.application(application, open: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
