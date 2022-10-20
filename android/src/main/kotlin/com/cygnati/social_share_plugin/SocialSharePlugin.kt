@@ -25,7 +25,6 @@ class SocialSharePlugin : FlutterPlugin, ActivityAware, MethodCallHandler,
   ActivityResultListener {
   private var activity: Activity? = null
   private var channel: MethodChannel? = null
-  private val callbackManager: CallbackManager = CallbackManager.Factory.create()
   override fun onAttachedToEngine(binding: FlutterPluginBinding) {
     channel = MethodChannel(binding.binaryMessenger, "social_share_plugin")
     channel!!.setMethodCallHandler(this)
@@ -60,7 +59,6 @@ class SocialSharePlugin : FlutterPlugin, ActivityAware, MethodCallHandler,
       }
       return true
     }
-    return callbackManager.onActivityResult(requestCode, resultCode, data)
   }
 
   override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
