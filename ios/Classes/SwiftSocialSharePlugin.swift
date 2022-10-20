@@ -1,5 +1,3 @@
-import FBSDKCoreKit
-import FBSDKShareKit
 import Flutter
 import UIKit
 
@@ -63,100 +61,6 @@ public class SwiftSocialSharePlugin: NSObject, FlutterPlugin, SharingDelegate {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch call.method {
-        case "shareToFeedInstagram":
-            guard let args = call.arguments else {
-                result(false)
-                break
-            }
-            if let myArgs = args as? [String: Any],
-               let path = myArgs["path"] as? String
-            {
-                let instagramURL = URL(string: "instagram://app")
-                if let instagramURL = instagramURL {
-                    if UIApplication.shared.canOpenURL(instagramURL) {
-                        instagramShare(path)
-//                        result(nil)
-                    } else {
-                        let instagramLink = "itms-apps://itunes.apple.com/us/app/apple-store/id389801252"
-                        if #available(iOS 10.0, *) {
-                            if let url = URL(string: instagramLink) {
-                                UIApplication.shared.open(url, options: [:]) { _ in
-                                }
-                            }
-                        } else {
-                            if let url = URL(string: instagramLink) {
-                                UIApplication.shared.openURL(url)
-                            }
-                        }
-                        result(false)
-                    }
-                }
-            } else {
-                result(false)
-            }
-        case "shareToFeedFacebook":
-            guard let args = call.arguments else {
-                result(false)
-                break
-            }
-            if let myArgs = args as? [String: Any],
-               let path = myArgs["path"] as? String
-            {
-                let fbURL = URL(string: "fbapi://")
-                if let fbURL = fbURL {
-                    if UIApplication.shared.canOpenURL(fbURL) {
-                        facebookShare(path)
-//                        result(nil)
-                    } else {
-                        let fbLink = "itms-apps://itunes.apple.com/us/app/apple-store/id284882215"
-                        if #available(iOS 10.0, *) {
-                            if let url = URL(string: fbLink) {
-                                UIApplication.shared.open(url, options: [:]) { _ in
-                                }
-                            }
-                        } else {
-                            if let url = URL(string: fbLink) {
-                                UIApplication.shared.openURL(url)
-                            }
-                        }
-                        result(false)
-                    }
-                }
-            } else {
-                result(false)
-            }
-        case "shareToFeedFacebookLink":
-            guard let args = call.arguments else {
-                result(false)
-                break
-            }
-            if let myArgs = args as? [String: Any],
-               let quote = myArgs["quote"] as? String,
-               let url = myArgs["url"] as? String
-            {
-                let fbURL = URL(string: "fbapi://")
-                if let fbURL = fbURL {
-                    if UIApplication.shared.canOpenURL(fbURL) {
-                        facebookShareLink(quote, url: url)
-//                        result(nil)
-                    } else {
-                        let fbLink = "itms-apps://itunes.apple.com/us/app/apple-store/id284882215"
-                        if #available(iOS 10.0, *) {
-                            if let url = URL(string: fbLink) {
-                                UIApplication.shared.open(url, options: [:]) { _ in
-                                }
-                            }
-                        } else {
-                            if let url = URL(string: fbLink) {
-                                UIApplication.shared.openURL(url)
-                            }
-                        }
-                        result(false)
-                    }
-                }
-            } else {
-                result(false)
-            }
         case "shareToTwitterLink":
             guard let args = call.arguments else {
                 result(false)
@@ -191,44 +95,6 @@ public class SwiftSocialSharePlugin: NSObject, FlutterPlugin, SharingDelegate {
         default:
             result(FlutterMethodNotImplemented)
         }
-    }
-
-    func instagramShare(_ imagePath: String?) {
-        let controller = UIApplication.shared.delegate?.window??.rootViewController
-        do {
-            try FileManager.default.moveItem(atPath: imagePath ?? "", toPath: "\(imagePath ?? "").igo")
-        } catch {}
-        let path = URL(string: "file://\(imagePath ?? "").igo")
-        if let path = path {
-            _dic = UIDocumentInteractionController(url: path)
-            _dic?.uti = "com.instagram.exclusivegram"
-            if let view = controller?.view {
-                if !(_dic?.presentOpenInMenu(from: CGRect.zero, in: view, animated: true) ?? false) {
-                    print("Error sharing to instagram")
-                }
-            }
-        }
-    }
-
-    func facebookShare(_ imagePath: String?) {
-        // NSURL* path = [[NSURL alloc] initWithString:call.arguments[@"path"]];
-        if let image = UIImage(contentsOfFile: imagePath ?? "") {
-            let photo = SharePhoto(image: image, isUserGenerated: true)
-            let content = SharePhotoContent()
-            content.photos = [photo]
-            let controller = UIApplication.shared.delegate?.window??.rootViewController
-            ShareDialog.show(viewController: controller, content: content, delegate: self)
-        }
-    }
-
-    func facebookShareLink(_ quote: String,
-                           url: String)
-    {
-        let content = ShareLinkContent()
-        content.contentURL = URL(string: url)
-        content.quote = quote
-        let controller = UIApplication.shared.delegate?.window??.rootViewController
-        ShareDialog.show(viewController: controller, content: content, delegate: self)
     }
 
     func twitterShare(_ text: String,
