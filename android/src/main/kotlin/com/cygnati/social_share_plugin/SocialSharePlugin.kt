@@ -39,7 +39,6 @@ class SocialSharePlugin : FlutterPlugin, ActivityAware, MethodCallHandler,
   }
 
   override fun onDetachedFromActivityForConfigChanges() {
-//    binding.removeActivityResultListener(this)
   }
 
   override fun onReattachedToActivityForConfigChanges(binding: ActivityPluginBinding) {
@@ -48,7 +47,6 @@ class SocialSharePlugin : FlutterPlugin, ActivityAware, MethodCallHandler,
   }
 
   override fun onDetachedFromActivity() {
-//    binding.removeActivityResultListener(this)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?): Boolean {
