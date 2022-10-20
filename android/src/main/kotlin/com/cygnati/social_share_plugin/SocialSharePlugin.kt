@@ -59,6 +59,7 @@ class SocialSharePlugin : FlutterPlugin, ActivityAware, MethodCallHandler,
       }
       return true
     }
+    return false;
   }
 
   override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
