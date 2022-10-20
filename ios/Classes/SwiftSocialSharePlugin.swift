@@ -2,29 +2,6 @@ import Flutter
 import UIKit
 
 public class SwiftSocialSharePlugin: NSObject, FlutterPlugin {
-    public func sharer(_ sharer: Sharing, didCompleteWithResults results: [String: Any]) {
-        _channel.invokeMethod("onSuccess", arguments: nil)
-        guard let result = _result else {
-            return
-        }
-        result(true)
-    }
-
-    public func sharer(_ sharer: Sharing, didFailWithError error: Error) {
-        _channel.invokeMethod("onError", arguments: nil)
-        guard let result = _result else {
-            return
-        }
-        result(false)
-    }
-
-    public func sharerDidCancel(_ sharer: Sharing) {
-        _channel.invokeMethod("onCancel", arguments: nil)
-        guard let result = _result else {
-            return
-        }
-        result(false)
-    }
 
     var _result: FlutterResult?
     var _channel: FlutterMethodChannel
