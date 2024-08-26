@@ -25,6 +25,8 @@ apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 
 android {
+    namespace 'com.cygnati.social_share_plugin'
+    
     compileSdkVersion 31
 
     compileOptions {
@@ -44,9 +46,6 @@ android {
         minSdkVersion 16
     }
 
-    if (project.android.hasProperty("namespace")) {
-        namespace "com.shekarmudaliyar.social_share"
-    }
 }
 
 dependencies {
