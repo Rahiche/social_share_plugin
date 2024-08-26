@@ -45,7 +45,7 @@ android {
     }
 
     if (project.android.hasProperty("namespace")) {
-        namespace "com.cygnati.social_share"
+        namespace "com.shekarmudaliyar.social_share"
     }
 }
 
