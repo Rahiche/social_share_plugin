@@ -13,7 +13,7 @@ Social Share to Twitter Flutter plugin.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { :path => '.' }
-  s.source_files = 'Classes/**/*'
+  s.source_files = 'social_share_plugin/Sources/social_share_plugin/**/*'
   s.dependency 'Flutter'
 
   s.platform = :ios, '11.0'
